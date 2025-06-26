@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Produk UMKM terbaik dan berkualitas">
+  <meta name="keywords" content="UMKM, Produk Lokal, Belanja Online">
+  <meta name="author" content="FH Buket">
+  <title>FH Buket</title>
+
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+
+  <style>
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(to bottom, #fce4ec, #e0f7fa);
+      color: #333;
+    }
+    header {
+      background-color: #f3e5f5;
+      padding: 1rem;
+      text-align: center;
+      position: relative;
+    }
+    .logo {
+      width: 60px;
+      border-radius: 8px;
+      position: absolute;
+      top: 1rem;
+      left: 1rem;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 2rem;
+      color: #a63d63;
+    }
+    .hiasan { color: #ff69b4; }
+    .cart {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      font-size: 2.2rem;
+      color: #6a3e4e;
+      cursor: pointer;
+      position: absolute;
+    }
+    .cart-count {
+      background: red;
+      color: white;
+      border-radius: 50%;
+      padding: 0 6px;
+      position: absolute;
+      top: 0;
+      right: -10px;
+      font-size: 0.8rem;
+    }
+    .running-text marquee {
+      background-color: #fce4ec;
+      padding: 0.5rem;
+      color: #a63d63;
+      font-weight: bold;
+    }
+    #search-bar {
+      display: flex;
+      justify-content: center;
+      margin: 1rem 0;
+    }
+    #search-bar input {
+      padding: 0.5rem;
+      width: 250px;
+      border: 1px solid #ccc;
+      border-radius: 4px 0 0 4px;
+    }
+    #search-bar button {
+      padding: 0.5rem 1rem;
+      border: none;
+      background-color: #ff69b4;
+      color: white;
+      border-radius: 0 4px 4px 0;
+      cursor: pointer;
+    }
+    nav {
+      background-color: #ce93d8;
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      padding: 1rem 0;
+      flex-wrap: wrap;
+    }
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      position: relative;
+    }
+    nav .nav-item {
+      position: relative;
+    }
+    nav .submenu {
+      display: none;
+      position: absolute;
+      background: white;
+      color: #a63d63;
+      min-width: 160px;
+      padding: 0.5rem;
+      border-radius: 6px;
+      top: 100%;
+      left: 0;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      z-index: 10;
+    }
+    nav .nav-item:hover .submenu { display: block; }
+    nav .submenu a {
+      display: block;
+      padding: 0.6rem 1rem;
+      color: #a63d63;
+      text-decoration: none;
+    }
+    .slider {
+      width: 100%;
+      max-width: 1200px;
+      height: 600px;
+      margin: 20px auto;
+      overflow: hidden;
+      border-radius: 12px;
+      position: relative;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    .slides {
+      display: flex;
+      width: 100%;
+      height: 100%;
+      animation: slide 15s infinite;
+    }
+
+    .slides img {
+      width: 100%;
+      height: 100%;
+      flex-shrink: 0;
+      transition: transform 0.5s ease-in-out;
+    }
+    .product {
+      background: #f1f8e9;
+      border: 1px solid #aed581;
+      border-radius: 8px;
+      padding: 1rem;
+      margin: 1.5rem 0;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    @keyframes slide {
+        0%,
+        20% {
+          transform: translateX(0%);
+        }
+        33.33%,
+        53.33% {
+          transform: translateX(-100%);
+        }
+        66.66%,
+        86.66% {
+          transform: translateX(-200%);
+        }
+        100% {
+          transform: translateX(0%);
+        }
+      }
+
+    .product img {
+      width: 100px;
+      margin: 0.5rem;
+      cursor: pointer;
+    }
+    .product h2 { margin-top: 0; }
+    .product button {
+      background: #8e24aa;
+      color: white;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .section {
+      background: #fce4ec;
+      border-left: 5px solid #ba68c8;
+      margin: 2rem 0;
+      padding: 1rem;
+    }
+    #popup-iklan, #zoom-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0,0,0,0.5);
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+    .popup-content, #zoom-modal .content {
+      background: white;
+      padding: 1rem;
+      border-radius: 10px;
+      max-width: 400px;
+      width: 90%;
+      text-align: center;
+      position: relative;
+      max-height: 80vh;
+      overflow-y: auto;
+    }
+
+    .popup-content img, #zoom-modal img {
+      max-width: 100%;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+    }
+    .close-btn {
+      position: absolute;
+      top: 0.5rem;
+      right: 1rem;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: #888;
+    }
+    .product-item {
+      display: inline-block;
+      text-align: center;
+      margin: 0.5rem;
+    }
+
+    .product-item img {
+      width: 100px;
+      cursor: pointer;
+    }
+
+    .caption {
+      font-size: 0.9rem;
+      margin-top: 0.3rem;
+      color: #555;
+    }
+    
+    #popup-konfirmasi {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.5);
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    #pilihan-list p {
+      transition: 0.2s;
+    }
+
+    #pilihan-list p:hover {
+      text-decoration: underline;
+      color: #d81b60;
+    }
+
+    /* Tombol Checkout & Tutup di Popup */
+    .popup-content button {
+      background: linear-gradient(45deg, #ff69b4, #ba68c8);
+      color: white;
+      border: none;
+      padding: 0.6rem 1.2rem;
+      border-radius: 8px;
+      font-weight: bold;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.3s, transform 0.2s;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      margin: 0.5rem;
+    }
+
+    .popup-content button:hover {
+      background: linear-gradient(45deg, #d81b60, #8e24aa);
+      transform: scale(1.05);
+    }
+
+    /* Tombol Tutup di pojok kanan atas */
+    .close-btn {
+      position: absolute;
+      top: 0.5rem;
+      right: 1rem;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: #d81b60;
+      transition: color 0.3s, transform 0.2s;
+    }
+
+    .close-btn:hover {
+      color: #8e24aa;
+      transform: rotate(90deg);
+    }
+
+    #checkout-btn {
+      background: linear-gradient(45deg, #ff69b4, #ba68c8); /* Warna background cantik */
+      color: white; /* Warna tulisan */
+      font-weight: bold;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      transition: background 0.3s, transform 0.2s;
+    }
+
+    #checkout-btn:hover {
+      background: linear-gradient(45deg, #d81b60, #8e24aa); /* Warna saat hover */
+      transform: scale(1.05);
+    }
+
+  </style>
+</head>
+<body>
+    <div id="popup-pilihan" style="
+      display:none;
+      position:fixed;
+      top:0;
+      left:0;
+      width:100vw;
+      height:100vh;
+      background:rgba(0,0,0,0.5);
+      justify-content:center;
+      align-items:center;
+      z-index:1000;
+    ">
+      <div class="popup-content">
+        <span class="close-btn" onclick="tutupPilihan()">&times;</span>
+        <h3 id="pilihan-title">Pilih Produk</h3>
+        <div id="pilihan-list"></div>
+      </div>
+    </div>
+
+  <header>
+    <img src="foto/logoFHbucket.jpg" alt="Logo FH Buket - Toko Buket Wisuda, Uang, dan Bunga" class="logo">
+    <h1>FH Buket - Buket Cantik & Hadiah Spesial dari UMKM</h1>
+    <h1><span class="hiasan">❀</span> FH Buket <span class="hiasan">❀</span></h1>
+    <div class="cart" onclick="toggleCartPopup()">
+      <i class="fas fa-shopping-cart"></i>
+      <span class="cart-count" id="cart-count">0</span>
+    </div>
+
+    <div id="popup-cart" style="
+      display:none;
+      position:absolute;
+      top:70px;
+      right:20px;
+      background:#fff;
+      padding:10px;
+      border:1px solid #ddd;
+      border-radius:6px;
+      box-shadow:0 0 10px rgba(0,0,0,0.1);
+      z-index:999;
+      font-size: 0.8rem;
+      width: 250px;
+    ">
+    <div id="popup-cart-list" style="max-height:150px; overflow-y:auto;"></div>
+      <hr>
+      <p style="font-weight:bold; font-size:0.9rem;">Total: Rp<span id="popup-total">0</span></p>
+    </div>
+  </header>
+
+  <div class="running-text">
+    <marquee>💮 Keindahan yang tak hanya dipandang, tapi juga dirasakan… Buket kami, perpaduan seni dan makna 💮</marquee>
+  </div>
+
+  <div id="search-bar">
+    <input type="text" placeholder="Cari produk..." id="searchInput">
+    <button>Cari</button>
+  </div>
+
+  <nav>
+    <a href="#beranda">Beranda</a>
+    <div class="nav-item">
+      <a href="#">Produk ▼</a>
+      <div class="submenu">
+        <a href="#buket-jajanan">Buket Jajanan</a>
+        <a href="#buket-uang">Buket Uang</a>
+        <a href="#buket-wisuda">Buket Wisuda</a>
+        <a href="#buket-bunga">Buket Bunga</a>
+      </div>
+    </div>
+    <a href="#profil">Profil UMKM</a>
+    <a href="#kontak">Contact Us</a>
+    <a href="#pembayaran">Pembayaran</a>
+  </nav>
+
+  <div class="slider">
+    <div class="slides" id="slides">
+      <img src="foto/slider1.jpg" alt="Slide 1">
+      <img src="foto/slider2.jpg" alt="Slide 2">
+      <img src="foto/slider3.jpg" alt="Slide 3">
+    </div>
+  </div>
+
+  <div id="popup-konfirmasi">
+    <div class="popup-content">
+      <span class="close-btn" onclick="tutupPopupKonfirmasi()">&times;</span>
+      <h3 id="konfirmasi-title">Produk berhasil ditambahkan!</h3>
+      <p id="konfirmasi-detail"></p>
+      <button onclick="tutupPopupKonfirmasi()">Tutup</button>
+    </div>
+  </div>
+
+  <main>
+    <section id="buket-wisuda" class="product">
+      <h2>Buket Wisuda</h2>
+      <img src="foto/wisuda1.jpg" alt="Buket Wisuda boneka beruang" loading="lazy" onclick="zoomFoto(this, 'Buket sederhana namun manis menampilkan boneka wisuda beruang dikelilingi bunga-bunga putih, dibungkus dengan kertas berwarna hijau muda dan putih, serta diikat dengan pita hijau dan putih.')">
+      <p class="caption">Graduation Bear & White Flowers Bouquet</p>
+      <img src="foto/wisuda2.jpg" alt="Buket Wisuda dengan bunga rose" loading="lazy" onclick="zoomFoto(this, 'Buket istimewa dengan boneka wisuda beruang coklat, bunga mawar putih yang elegan, dan sentuhan dekorasi natural, dibungkus dengan kertas berwarna hitam dan coklat, serta dihias dengan pita hitam dan putih')">
+      <p class="caption">Brown Graduation Bear & White Roses Bouquet</p>
+      <p>Harga: Rp55.000 - Rp150.000</p>
+      <button onclick="bukaPilihan('Buket Wisuda', [
+        { nama: 'Graduation Bear & White Flowers', harga: 55000 },
+        { nama: 'Brown Graduation Bear & White Roses', harga: 125000 }
+      ])">Tambah ke Keranjang</button>
+    </section>
+
+    <section id="buket-uang" class="product">
+      <h2>Buket Uang</h2>
+      <img src="foto/uang1.jpg" alt="Buket Uang" loading="lazy" onclick="zoomFoto(this, 'Buket bunga uang dengan dominasi uang kertas yang dibentuk menyerupai bunga besar, dikelilingi bunga artifisial ungu dan pink, dibungkus elegan dengan kertas pink dan gold.')">
+      <p class="caption">Premium Money Flower Bouquet (Purple & Pink)</p>
+      <img src="foto/uang2.jpg" alt="Buket Uang" loading="lazy" onclick="zoomFoto(this, 'Buket uang minimalis dan elegan, menampilkan lembaran uang kertas Rp5.000,00 yang tersusun rapi, dibungkus dengan kombinasi kertas hitam dan emas.')">
+      <p class="caption">Elegant Black & Gold Money Bouquet</p>
+      <img src="foto/uang3.jpg" alt="Buket Uang" loading="lazy" onclick="zoomFoto(this, 'Buket uang berbentuk kipas dengan lembaran uang kertas Rp10.000,00, dihiasi bunga kecil dan pita pink, dibungkus kertas putih dan pink.')">
+      <p class="caption">Pink Ribbon Money Fan Bouquet</p>
+      <img src="foto/uang4.jpg" alt="Buket Uang" loading="lazy" onclick="zoomFoto(this, 'Buket wisuda mewah dengan uang kertas, boneka beruang wisuda, balon bintang, dan bunga lily, dibungkus kertas biru muda dan putih.')">
+      <p class="caption">Graduation Money & Bear Bouquet</p>
+      <p>Harga: Rp235.000 - Rp1.000.000 (sesuai isi uang)</p>
+      <button onclick="bukaPilihan('Buket Uang', [
+        { nama: 'Premium Money Flower Bouquet (Purple & Pink)', harga: 450000 },
+        { nama: 'Elegant Black & Gold Money Bouquet', harga: 150000 },
+        { nama: 'Pink Ribbon Money Fan Bouquet', harga: 645000 },
+        { nama: 'Graduation Money & Bear Bouquet', harga: 535000 }
+      ])">Tambah ke Keranjang</button>
+    </section>
+
+    <section id="buket-jajanan" class="product">
+      <h2>Buket Jajanan</h2>
+      <img src="foto/jajanan1.jpg" alt="Buket berisi cokelat" loading="lazy" onclick="zoomFoto(this, 'Buket Cadbury Dairy Milk bernuansa ungu, simpel dan manis. Pas untuk kejutan istimewa.')">
+      <p class="caption">Cadbury Sweet Purple Bouquet</p>
+      <img src="foto/jajanan2.jpg" alt="Buket SilverQueen" loading="lazy" onclick="zoomFoto(this, 'Buket cokelat SilverQueen dengan tampilan elegan, dihias bunga dan pita hitam. Cocok untuk hadiah spesial.')">
+      <p class="caption">SilverQueen Elegant Bouquet</p>
+      <img src="foto/jajanan3.jpg" alt="Buket Beruang dengan makanan" loading="lazy" onclick="zoomFoto(this, 'Buket unik berisi aneka snack favorit dan boneka beruang wisuda, dibungkus kertas hitam dan putih, diikat pita senada. Ide hadiah seru untuk kelulusan.')">
+      <p class="caption">Graduation Snack & Bear Bouquet</p>
+      <p>Harga: Rp27.000 - Rp250.000</p>
+      <button onclick="bukaPilihan('Buket Jajanan', [
+        { nama: 'Cadbury Sweet Purple Bouquet', harga: 225000 },
+        { nama: 'SilverQueen Elegant Bouquet', harga: 235000 },
+        { nama: 'Graduation Snack & Bear Bouquet', harga: 220000 }
+      ])">Tambah ke Keranjang</button>
+    </section>
+
+    <section id="buket-bunga" class="product">
+      <h2>Buket Bunga</h2>
+      <img src="foto/bunga1.jpg" alt="Sweet Pink & Red Roses Bouquet" loading="lazy" onclick="zoomFoto(this, 'Buket bunga mawar aneka warna (merah, pink, putih) dengan sentuhan hijau, dibungkus kertas peach dan putih, serta diikat pita merah cerah. Sempurna untuk hadiah romantis.')">
+      <p class="caption">Sweet Pink & Red Roses Bouquet</p>
+      <img src="foto/bunga2.jpg" alt="Blue Roses & Crown Graduation Bouquet" loading="lazy" onclick="zoomFoto(this, 'Buket cantik berisi bunga mawar biru lembut yang dibentuk menyerupai mahkota, pita bertuliskan Happy Graduation, hiasan kupu-kupu perak, dan dibungkus dengan kain tile dan kertas berwarna biru dan putih.')">
+      <p class="caption">Blue Roses & Crown Graduation Bouquet</p>
+      <img src="foto/bunga3.jpg" alt="Colorful Mixed Roses Bouquet" loading="lazy" onclick="zoomFoto(this, 'Buket berisi paduan bunga mawar merah, biru, dan ungu yang cerah, dibungkus dengan kertas hitam dan biru muda, serta diikat pita biru. Cocok untuk berbagai perayaan.')">
+      <p class="caption">Colorful Mixed Roses Bouquet</p>
+      <p>Harga: Rp125.000 - Rp370.000</p>
+      <button onclick="bukaPilihan('Buket Bunga', [
+        { nama: 'Sweet Pink & Red Roses Bouquet', harga: 135000 },
+        { nama: 'Blue Roses & Crown Graduation Bouquet', harga: 235000 },
+        { nama: 'Colorful Mixed Roses Bouquet', harga: 200000 }
+      ])">Tambah ke Keranjang</button>
+    </section>
+
+    <section id="profil" class="section">
+      <h2>Profil FH Buket</h2>
+      <p>FH Buket adalah UMKM lokal yang memproduksi buket kreatif dan unik untuk berbagai acara spesial.</p>
+    </section>
+
+    <section id="kontak" class="section">
+      <h2>Contact Us</h2>
+      <p>Email: <a href="mailto:info@fhbuket.id">info@fhbuket.id</a></p>
+      <p>WhatsApp: <a href="https://wa.me/6285921948019" target="_blank">+62 859-2194-8019</a></p>
+    </section>
+
+
+    <section id="pembayaran" class="section">
+      <h2>Pembayaran</h2>
+      <p>Kami menerima pembayaran melalui transfer bank, e-wallet, dan kartu kredit.</p>
+    </section>
+
+    <section id="keranjang" class="section">
+      <h2>Keranjang Belanja</h2>
+      <ul id="list-keranjang"></ul>
+      <p>Total: Rp<span id="total">0</span></p>
+      <button id="checkout-btn" onclick="checkout()">Checkout</button>
+    </section>
+  </main>
+
+  <div id="popup-iklan">
+    <div class="popup-content">
+      <span class="close-btn" onclick="tutupPopup()">&times;</span>
+      <img src="foto/fotoiklanPU.png" alt="Iklan">
+      <h2>WELCOME!!</h2>
+      <p>Temukan bunga impianmu disini, cantik dan penuh makna 💮</p>
+      <button onclick="tutupPopup()">Tutup</button>
+    </div>
+  </div>
+
+  <div id="zoom-modal">
+    <div class="content">
+      <h3 id="zoom-title"></h3>
+      <img id="zoom-img" src="">
+      <button onclick="tutupZoom()">Tutup</button>
+    </div>
+  </div>
+
+<script>
+  let keranjang = [];
+
+  function tampilkanPopupKonfirmasi(nama, harga) {
+    document.getElementById('konfirmasi-title').textContent = 'Berhasil Ditambahkan ke Keranjang!';
+    document.getElementById('konfirmasi-detail').textContent = `${nama} - Rp${harga.toLocaleString()}`;
+    document.getElementById('popup-konfirmasi').style.display = 'flex';
+  }
+
+  function tutupPopupKonfirmasi() {
+    document.getElementById('popup-konfirmasi').style.display = 'none';
+  }
+
+  function tambahKeranjang(nama, harga) {
+    keranjang.push({ nama, harga });
+    updateKeranjang();
+    tampilkanPopupKonfirmasi(nama, harga);
+  }
+
+  function updateKeranjang() {
+    const list = document.getElementById('list-keranjang');
+    const popupList = document.getElementById('popup-cart-list');
+    const totalEl = document.getElementById('total');
+    const popupTotal = document.getElementById('popup-total');
+    const countEl = document.getElementById('cart-count');
+  
+    list.innerHTML = '';
+    popupList.innerHTML = '';
+  
+    let total = 0;
+  
+    keranjang.forEach((item, index) => {
+      const li = document.createElement('li');
+      li.textContent = `${item.nama} - Rp${item.harga}`;
+      list.appendChild(li);
+
+      const div = document.createElement('div');
+      div.style.marginBottom = '6px';
+      div.innerHTML = `
+        ${item.nama} - Rp${item.harga}
+        <button style="
+          margin-left:5px;
+          background:#f44336;
+          border:none;
+          color:white;
+          padding:2px 6px;
+          border-radius:5px;
+          cursor:pointer;
+        " onclick="hapusItem(${index})">x</button>
+      `;
+      popupList.appendChild(div);
+
+      total += item.harga;
+    });
+  
+    totalEl.textContent = total;
+    popupTotal.textContent = total;
+    countEl.textContent = keranjang.length;
+  }
+
+  function hapusItem(index) {
+    keranjang.splice(index, 1);
+    updateKeranjang();
+  }
+
+  function checkout() {
+    if (keranjang.length === 0) return alert("Keranjang kosong!");
+    alert("Terima kasih telah memesan!");
+    keranjang = [];
+    updateKeranjang();
+  }
+
+  function zoomFoto(img, title) {
+    document.getElementById('zoom-title').textContent = title;
+    document.getElementById('zoom-img').src = img.src;
+    document.getElementById('zoom-modal').style.display = 'flex';
+  }
+
+  function tutupZoom() {
+    document.getElementById('zoom-modal').style.display = 'none';
+  }
+
+  function tutupPopup() {
+    document.getElementById('popup-iklan').style.display = 'none';
+  }
+
+  function scrollToCart() {
+    document.getElementById('keranjang').scrollIntoView({ behavior: 'smooth' });
+  }
+
+  window.onload = () => {
+    setTimeout(() => {
+      document.getElementById('popup-iklan').style.display = 'flex';
+    }, 2000);
+
+    const slides = document.getElementById('slides');
+    let index = 0;
+    setInterval(() => {
+      index = (index + 1) % 3;
+      slides.style.transform = `translateX(-${index * 100}%)`;
+    }, 4000);
+  }
+    document.getElementById('searchInput').addEventListener('input', function () {
+    const keyword = this.value.toLowerCase();
+    document.querySelectorAll('.product').forEach(produk => {
+      const nama = produk.querySelector('h2').innerText.toLowerCase();
+      produk.style.display = nama.includes(keyword) ? 'block' : 'none';
+    });
+  });
+  function toggleCartPopup() {
+    const popup = document.getElementById('popup-cart');
+    popup.style.display = popup.style.display === 'block' ? 'none' : 'block';
+  }
+
+  function bukaPilihan(kategori, pilihan) {
+    const list = document.getElementById('pilihan-list');
+    document.getElementById('pilihan-title').textContent = `Pilih ${kategori}`;
+    list.innerHTML = '';
+
+    pilihan.forEach(item => {
+      const div = document.createElement('div');
+      div.style.margin = '10px 0';
+      div.style.padding = '8px';
+      div.style.border = '1px solid #ccc';
+      div.style.borderRadius = '6px';
+      div.style.cursor = 'pointer';
+      div.style.transition = '0.2s';
+      div.innerHTML = `
+        <p style="margin:0; font-weight:bold; color:#8e24aa;">
+          ${item.nama} - Rp${item.harga.toLocaleString()}
+        </p>
+      `;
+        div.onclick = () => pilihProduk(`${kategori} - ${item.nama}`, item.harga);
+
+        div.addEventListener('mouseover', () => {
+          div.style.backgroundColor = '#f3e5f5';
+        });
+        div.addEventListener('mouseout', () => {
+          div.style.backgroundColor = '';
+        });
+
+      list.appendChild(div);
+    });
+
+    document.getElementById('popup-pilihan').style.display = 'flex';
+  }
+
+  function tutupPilihan() {
+    document.getElementById('popup-pilihan').style.display = 'none';
+  }
+
+  function pilihProduk(nama, harga) {
+    tambahKeranjang(nama, harga);
+    tutupPilihan();
+  }
+
+</script>
+
+</body>
+</html>
