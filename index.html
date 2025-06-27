@@ -6,6 +6,26 @@
   <meta name="description" content="Produk UMKM terbaik dan berkualitas">
   <meta name="keywords" content="UMKM, Produk Lokal, Belanja Online">
   <meta name="author" content="FH Buket">
+
+  <!-- SEO Dasar -->
+  <meta name="description" content="FH Buket - Buket Cantik, Buket Uang, Buket Wisuda, Buket Bunga, Hadiah Unik untuk Momen Spesial. Dukung Produk UMKM Lokal!">
+  <meta name="keywords" content="Buket Wisuda, Buket Uang, Buket Bunga, Buket Jajanan, FH Buket, Hadiah Spesial, UMKM Lokal">
+  <meta name="author" content="FH Buket">
+
+  <!-- Open Graph untuk Media Sosial -->
+  <meta property="og:title" content="FH Buket - Buket Cantik & Hadiah Spesial">
+  <meta property="og:description" content="Temukan Buket Cantik, Buket Uang, Buket Wisuda, atau Hadiah Spesial di FH Buket. Dukung UMKM Lokal.">
+  <meta property="og:image" content="https://websitee1808.github.io/FHbuket/foto/logoFHbuket.jpg">
+  <meta property="og:url" content="https://websitee1808.github.io/FHbuket/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="FH Buket">
+  <meta property="og:locale" content="id_ID">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="FH Buket - Buket Cantik & Hadiah Spesial">
+  <meta name="twitter:description" content="Temukan Buket Impianmu di FH Buket, Produk UMKM Berkualitas.">
+  <meta name="twitter:image" content="https://websitee1808.github.io/FHbuket/foto/logoFHbuket.jpg">
+
   <title>FH Buket</title>
 
   <link rel="stylesheet" href="style.css">
@@ -25,7 +45,27 @@
       padding: 1rem;
       text-align: center;
       position: relative;
+      background-image: url('foto/bgheader.png'), linear-gradient(to bottom, #f3e5f5, #f3e5f5);
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: center;
+      background-blend-mode: multiply;
     }
+
+    header::after {
+      content: "";
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(243, 229, 245, 0.8); 
+      z-index: 1;
+    }
+
+    header h1, .cart, .logo {
+      position: relative;
+      z-index: 2;
+    }
+
     .logo {
       width: 60px;
       border-radius: 8px;
@@ -58,16 +98,27 @@
       right: -10px;
       font-size: 0.8rem;
     }
+    .running-text {
+      background: #f8bbd0;
+      padding: 0.5rem 0;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+      border-top: 2px solid #d81b60;
+      border-bottom: 2px solid #d81b60;
+      text-align: center;
+    }
     .running-text marquee {
-      background-color: #fce4ec;
-      padding: 0.5rem;
+      background: transparent;
       color: #a63d63;
       font-weight: bold;
     }
+
     #search-bar {
       display: flex;
       justify-content: center;
-      margin: 1rem 0;
+      align-items: center;
+      margin: 1.5rem auto;
+      max-width: 500px;
+      padding: 0.5rem;
     }
     #search-bar input {
       padding: 0.5rem;
@@ -137,7 +188,6 @@
       height: 100%;
       animation: slide 15s infinite;
     }
-
     .slides img {
       width: 100%;
       height: 100%;
@@ -304,8 +354,8 @@
     }
 
     #checkout-btn {
-      background: linear-gradient(45deg, #ff69b4, #ba68c8); /* Warna background cantik */
-      color: white; /* Warna tulisan */
+      background: #ff69b4; 
+      color: white;
       font-weight: bold;
       padding: 10px 20px;
       border: none;
@@ -316,8 +366,24 @@
     }
 
     #checkout-btn:hover {
-      background: linear-gradient(45deg, #d81b60, #8e24aa); /* Warna saat hover */
+      background: linear-gradient(45deg, #d81b60, #8e24aa); 
       transform: scale(1.05);
+    }
+
+    main > section, .slider, #search-bar {
+      transition: all 0.4s ease;
+    }
+
+    button.custom-btn {
+      background: #ff69b4;
+      color: white;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-top: 0.5rem;
+      font-weight: bold;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
     }
 
   </style>
@@ -343,7 +409,7 @@
     </div>
 
   <header>
-    <img src="foto/logoFHbucket.jpg" alt="Logo FH Buket - Toko Buket Wisuda, Uang, dan Bunga" class="logo">
+    <img src="foto/logoFHbuket.jpg" alt="Logo FH Buket - Toko Buket Wisuda, Uang, dan Bunga" class="logo">
     <h1>FH Buket - Buket Cantik & Hadiah Spesial dari UMKM</h1>
     <h1><span class="hiasan">❀</span> FH Buket <span class="hiasan">❀</span></h1>
     <div class="cart" onclick="toggleCartPopup()">
@@ -368,19 +434,19 @@
     <div id="popup-cart-list" style="max-height:150px; overflow-y:auto;"></div>
       <hr>
       <p style="font-weight:bold; font-size:0.9rem;">Total: Rp<span id="popup-total">0</span></p>
-    <button id="popup-checkout-btn" style="
-      background: linear-gradient(45deg, #ff69b4, #ba68c8);
-      color: white;
-      border: none;
-      padding: 8px 16px;
-      border-radius: 6px;
-      font-weight: bold;
-      margin-top: 10px;
-      width: 100%;
-      cursor: pointer;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-      font-size: 0.9rem;
-    " onclick="checkout()">Checkout</button>
+      <button id="popup-checkout-btn" style="
+        background: linear-gradient(45deg, #ff69b4, #ba68c8);
+        color: white;
+        border: none;
+        padding: 8px 16px;
+        border-radius: 6px;
+        font-weight: bold;
+        margin-top: 10px;
+        width: 100%;
+        cursor: pointer;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        font-size: 0.9rem;
+      " onclick="menujuKeranjang()">Checkout</button>
     </div>
   </header>
 
@@ -398,15 +464,15 @@
     <div class="nav-item">
       <a href="#">Produk ▼</a>
       <div class="submenu">
-        <a href="#buket-jajanan">Buket Jajanan</a>
-        <a href="#buket-uang">Buket Uang</a>
-        <a href="#buket-wisuda">Buket Wisuda</a>
-        <a href="#buket-bunga">Buket Bunga</a>
+        <a href="javascript:void(0);" onclick="fokusBagian('buket-jajanan')">Buket Jajanan</a>
+        <a href="javascript:void(0);" onclick="fokusBagian('buket-uang')">Buket Uang</a>
+        <a href="javascript:void(0);" onclick="fokusBagian('buket-wisuda')">Buket Wisuda</a>
+        <a href="javascript:void(0);" onclick="fokusBagian('buket-bunga')">Buket Bunga</a>
       </div>
     </div>
-    <a href="#profil">Profil UMKM</a>
-    <a href="#kontak">Contact Us</a>
-    <a href="#pembayaran">Pembayaran</a>
+    <a href="javascript:void(0);" onclick="fokusBagian('profil')">Profil UMKM</a>
+    <a href="javascript:void(0);" onclick="fokusBagian('kontak')">Contact Us</a>
+    <a href="javascript:void(0);" onclick="fokusBagian('pembayaran')">Pembayaran</a>
   </nav>
 
   <div class="slider">
@@ -436,8 +502,9 @@
       <p>Harga: Rp55.000 - Rp150.000</p>
       <button onclick="bukaPilihan('Buket Wisuda', [
         { nama: 'Graduation Bear & White Flowers', harga: 55000 },
-        { nama: 'Brown Graduation Bear & White Roses', harga: 125000 }
+        { nama: 'Brown Graduation Bear & White Roses', harga: 125000 },
       ])">Tambah ke Keranjang</button>
+      <button class="custom-btn" onclick="bukaCustom('Buket Wisuda')">Custom Buket Wisuda</button>
     </section>
 
     <section id="buket-uang" class="product">
@@ -457,6 +524,7 @@
         { nama: 'Pink Ribbon Money Fan Bouquet', harga: 645000 },
         { nama: 'Graduation Money & Bear Bouquet', harga: 535000 }
       ])">Tambah ke Keranjang</button>
+      <button class="custom-btn" onclick="bukaCustom('Buket Wisuda')">Custom Buket Uang</button>
     </section>
 
     <section id="buket-jajanan" class="product">
@@ -473,6 +541,7 @@
         { nama: 'SilverQueen Elegant Bouquet', harga: 235000 },
         { nama: 'Graduation Snack & Bear Bouquet', harga: 220000 }
       ])">Tambah ke Keranjang</button>
+      <button class="custom-btn" onclick="bukaCustom('Buket Wisuda')">Custom Buket Jajanan</button>
     </section>
 
     <section id="buket-bunga" class="product">
@@ -489,6 +558,7 @@
         { nama: 'Blue Roses & Crown Graduation Bouquet', harga: 235000 },
         { nama: 'Colorful Mixed Roses Bouquet', harga: 200000 }
       ])">Tambah ke Keranjang</button>
+      <button class="custom-btn" onclick="bukaCustom('Buket Wisuda')">Custom Buket Bunga</button>
     </section>
 
     <section id="profil" class="section">
@@ -500,19 +570,19 @@
       <h2>Contact Us</h2>
       <p>Email: <a href="mailto:info@fhbuket.id">info@fhbuket.id</a></p>
       <p>WhatsApp: <a href="https://wa.me/6285921948019" target="_blank">+62 859-2194-8019</a></p>
+      <p>Instagram: <a href="https://www.instagram.com/fh.buket?igsh=MXc2amZwOTZ5YmZtdA==" target="_blank">@fh.buket</a></p>
     </section>
-
 
     <section id="pembayaran" class="section">
       <h2>Pembayaran</h2>
-      <p>Kami menerima pembayaran melalui transfer bank, e-wallet, dan kartu kredit.</p>
+      <p>Pembayaran hanya melalui WhatsApp setelah konfirmasi pesanan.</p>
     </section>
 
     <section id="keranjang" class="section">
       <h2>Keranjang Belanja</h2>
       <ul id="list-keranjang"></ul>
       <p>Total: Rp<span id="total">0</span></p>
-      <button id="checkout-btn" onclick="checkout()">Checkout</button>
+      <button id="checkout-btn" onclick="checkout()">Beli Sekarang</button>
     </section>
   </main>
 
@@ -601,7 +671,13 @@
 
   function checkout() {
     if (keranjang.length === 0) return alert("Keranjang kosong!");
-    alert("Terima kasih telah memesan!");
+
+    const pesan = encodeURIComponent("Halo FH Buket, saya ingin memesan:\n\n" + 
+      keranjang.map(item => `- ${item.nama} - Rp${item.harga.toLocaleString()}`).join("\n") + 
+      `\n\nTotal: Rp${keranjang.reduce((total, item) => total + item.harga, 0).toLocaleString()}`
+    );
+
+    window.open(`https://wa.me/6285921948019?text=${pesan}`, '_blank');
     keranjang = [];
     updateKeranjang();
   }
@@ -687,6 +763,57 @@
 
   function pilihProduk(nama, harga) {
     tambahKeranjang(nama, harga);
+    tutupPilihan();
+  }
+  function menujuKeranjang() {
+    document.getElementById('popup-cart').style.display = 'none';
+    scrollToCart();
+  }
+
+  let bagianAktif = null;
+
+  function fokusBagian(idBagian) {
+    const semuaBagian = document.querySelectorAll('main > section, .slider, #search-bar');
+    const bagianTarget = document.getElementById(idBagian);
+
+    if (bagianAktif === idBagian) {
+      
+      semuaBagian.forEach(bagian => bagian.style.display = 'block');
+      bagianAktif = null;
+    } else {
+      
+      semuaBagian.forEach(bagian => {
+        bagian.style.display = (bagian === bagianTarget) ? 'block' : 'none';
+      });
+      bagianAktif = idBagian;
+
+      bagianTarget.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }
+
+  function bukaCustom(kategori) {
+    const list = document.getElementById('pilihan-list');
+    document.getElementById('pilihan-title').textContent = `Custom ${kategori}`;
+    list.innerHTML = `
+      <p style="font-weight:bold; color:#8e24aa; text-align:center;">
+        Kirim detail Custom ${kategori} ke WhatsApp
+      </p>
+      <button style="
+        background: linear-gradient(45deg, #ff69b4, #ba68c8);
+        color: white;
+        border: none;
+        padding: 0.6rem 1rem;
+        border-radius: 8px;
+        cursor: pointer;
+        margin-top: 1rem;
+      " onclick="customWhatsApp('${kategori}')">Kirim Permintaan Custom</button>
+    `;
+    document.getElementById('popup-pilihan').style.display = 'flex'; 
+  }
+
+  function customWhatsApp(kategori) {
+    const pesan = encodeURIComponent(`Halo FH Buket, saya ingin request Custom ${kategori}. Mohon informasi lebih lanjut.`);
+    window.open(`https://wa.me/6285921948019?text=${pesan}`, '_blank');
     tutupPilihan();
   }
 
