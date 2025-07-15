@@ -486,7 +486,7 @@
   </div>
 
   <nav>
-    <a href="#top">Beranda</a>
+    <a href="javascript:void(0);" onclick="keBeranda()">Beranda</a>
     <div class="nav-item">
       <a href="#">Produk ▼</a>
       <div class="submenu">
@@ -853,6 +853,18 @@
     const pesan = encodeURIComponent(`Halo FH Buket, saya ingin request Custom ${kategori}. Mohon informasi lebih lanjut.`);
     window.open(`https://wa.me/6285921948019?text=${pesan}`, '_blank');
     tutupPilihan();
+  }
+
+  function keBeranda() {
+    const semuaBagian = document.querySelectorAll('main > section, .slider, #search-bar');
+
+    semuaBagian.forEach(bagian => {
+      bagian.style.display = 'block';
+    });
+
+    bagianAktif = null;
+
+    document.querySelector('header').scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 
 </script>
